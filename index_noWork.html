@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title-5</title>
+  <style>
+    video {width: 100px; height: 100px; border: #4D4E53 1px solid;}
+  </style>
+  <script type="text/javascript">
+    // no work
+    //https://riptutorial.com/ru/webrtc
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+      .then(stream => {
+        // attach this stream to window object so you can reuse it later
+        var videoElement = document.getElementById( 'video' );
+        videoElement.src = URL.createObjectURL( stream );
+        videoElement.autoplay = true;
+        videoElement.muted = true;
+
+
+        //
+        window.localStream = stream;
+        // Your code to use the stream
+      })
+      .catch((err) =>{
+        console.log(err);
+      });
+
+  </script>
+</head>
+<body>
+  <div>
+    GO
+  </div>
+
+  <video id="video" autoplay></video>
+
+</body>
+</html>

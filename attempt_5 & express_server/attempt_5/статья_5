@@ -1,0 +1,89 @@
+Конспект статьи https://coderlessons.com/tutorials/veb-razrabotka/uznaite-webrtc/webrtc-kratkoe-rukovodstvo
+(оооочень хорошая!)
+
+а еще есть у них же
+https://coderlessons.com/tutorials/veb-razrabotka/uznaite-webrtc/webrtc-tekstovaia-demonstratsiia
+
+и так же смотри
+https://translate.google.com/translate?depth=1&rurl=translate.google.ru&sl=en&sp=nmt4&tl=ru&u=http://www.webrtc.org/&xid=17259,15700022,15700186,15700190,15700256,15700259,15700262
+
+WebSockets +
+https://coderlessons.com/tutorials/veb-razrabotka/izuchite-veb-sokety/uchebnik-po-websockets
+
+API WebRTC
+- состоит из нескольких основных объектов JavaScript –
+
+RTCPeerConnection
+MediaStream
+RTCDataChannel
+
+
+1. Объект RTCPeerConnection
+- настроить и создать одноранговое соединение.
+
+var conn = new RTCPeerConnection(conf); 
+
+//Событие onaddstream наступает, когда удаленный пользователь
+//добавляет видео- или аудиопоток в одноранговое соединение.
+
+conn.onaddstream = function(stream) {
+   // use stream here 
+}; 
+
+
+
+2. getUserMedia
+-это MediaStream API, дает доступ к объекту потока с камеры и микрофона.
+
+Каждый объект MediaStream включает в себя несколько объектов MediaStreamTrack.
+Они представляют видео и аудио с разных устройств ввода.
+Каждый объект MediaStreamTrack может включать в себя несколько каналов (правый и левый аудиоканалы).
+
+Есть два способа вывода объектов MediaStream.
+Во-первых, мы можем визуализировать вывод в видео или аудио элемент.
+Во-вторых, мы можем отправить вывод объекту RTCPeerConnection, который затем отправит его удаленному узлу.
+
+
+
+3. RTCDataChannel
+- отправлять дополнительные данные.
+Основная задача – создать канал из существующего объекта RTCPeerConnection
+
+var peerConn = new RTCPeerConnection();
+
+//establishing peer connection
+//...
+//end of establishing peer connection
+var dataChannel = peerConnection.createDataChannel("myChannel", dataChannelOptions);
+
+// here we can start sending direct messages to another peer
+
+
+.........................
+ДОГМЫ
+https://translate.google.com/translate?depth=1&rurl=translate.google.ru&sl=en&sp=nmt4&tl=ru&u=https://www.tutorialspoint.com/webrtc/webrtc_finding_route.htm&xid=17259,15700022,15700186,15700190,15700256,15700259,15700262
+
+UDP
+Приложения WebRTC используют UDP (протокол пользовательских дейтаграмм) в качестве транспортного протокола -
+позволяет себе потерять часть передаваемых кадров, но сохранить скорость соединения.
+Большинство веб-приложений сегодня создаются с использованием протокола TCP (Transmission Control Protocol)- сохранность, но не скорость.
+
+SDP
+SDP - это файл с строковыми данными, содержащий наборы пар ключ-значение.
+Используется для согласования между узлами различных аудио- и видеокодеков, топологий сети и другой информации об устройстве.
+SDP является первой частью однорангового соединения.
+Узлы должны обмениваться данными SDP с помощью канала сигнализации, чтобы установить соединение.
+Связан с RTCPeerConnection.
+
+Поиск своего IP-адреса
+Есть несколько технологий, используемых для поиска четкого маршрута к другому пользователю -
+-STUN (утилиты обхода сессии для NAT)
+   STUN помогает идентифицировать каждого пользователя и найти хорошую связь между ними.
+   Прежде всего, он отправляет запрос на сервер, включенный по протоколу STUN. Затем сервер отправляет обратно IP-адрес клиента.
+   Теперь клиент может идентифицировать себя с этим IP-адресом.
+-TURN (обход STUN через реле вокруг NAT)
+-ICE (создание интерактивных связей)
+
+SCTP
+Протокол SCTP используется сегодня для отправки данных больших двоичных объектов поверх нашего текущего настроенного
+однорангового соединения при использовании объекта RTCDataChannel.

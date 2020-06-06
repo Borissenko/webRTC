@@ -1,0 +1,69 @@
+https://webrtc.org/
+
+хор статья (!) -
+https://coderlessons.com/tutorials/veb-razrabotka/uznaite-webrtc/webrtc-kratkoe-rukovodstvo
+
+https://translate.google.com/translate?depth=1&rurl=translate.google.ru&sl=en&sp=nmt4&tl=ru&u=http://www.webrtc.org/&xid=17259,15700022,15700186,15700190,15700256,15700259,15700262
+
+толковая книга- 
+https://riptutorial.com/ebook/webrtc
+https://riptutorial.com/Download/webrtc.pdf
+
+перевод этой книги- https://riptutorial.com/ru/webrtc
+
+примеры - https://github.com/webrtc
+
+примеры с кодом - https://webrtc.github.io/samples/
+
+пример, который работает - 
+https://riptutorial.com/ru/webrtc/example/20001/%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D0%B5-%D1%80%D0%B0%D0%B7%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%B0%D0%BC%D0%B5%D1%80%D1%8B-%D0%B8-%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D1%84%D0%BE%D0%BD%D0%B0-%D0%B8-%D0%BF%D1%80%D0%B5%D0%B4%D0%B2%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80-%D0%BD%D0%B0-%D0%B2%D0%B5%D0%B1-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5
+
+
+статья хорошая - https://riptutorial.com/ru/webrtc
+
+статья - https://habr.com/ru/post/163527/
+
+А. Media Streams 
+— API, позволяющий получить доступ к камере и микрофону через браузер без каких-либо плагинов и флеша.
+
+У броузера есть глобальная переменная navigator
+console.log(navigator)
+
+1. Запрашиваем доступ к камерам компа:
+
+var getUserMedia;
+var browserUserMedia =	navigator.webkitGetUserMedia	||	// WebKit
+			navigator.mozGetUserMedia	||	// Mozilla FireFox
+			navigator.getUserMedia;			// 2013...
+
+if ( !browserUserMedia ) throw 'Your browser doesn\'t support WebRTC';
+
+getUserMedia = browserUserMedia.bind( navigator );
+
+getUserMedia(
+	{
+		audio: true,
+		video: true
+	},
+	function( stream ) {
+		console.log( "stream ===== ", stream );
+	},
+	function( err ) {
+		console.log( err );
+	}
+);
+
+=> Браузер мило попросит разрешения.
+
+
+
+2. Открываем в броузере html-файл
+
+<video id="video" autoplay></video>
+
+var videoElement = document.getElementById( 'video' );
+videoElement.src = URL.createObjectURL( stream );
+
+
+
+
